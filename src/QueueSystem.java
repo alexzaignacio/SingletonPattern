@@ -1,15 +1,40 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+public class QueueSystem {
+    private int currentNumber;
+    private OnlineMonitor onlineMonitor;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+    public QueueSystem() {
+        this.currentNumber = 0;
+        this.onlineMonitor = new OnlineMonitor();
+    }
+
+    public int generateQueueNumber() {
+        currentNumber++;
+        onlineMonitor.updateDisplay(currentNumber);
+        System.out.println("New queue number generated: " + currentNumber);
+        return currentNumber;
+    }
+
+    public void resetQueueNumber(int newNumber) {
+        if (newNumber >= 0) {
+            this.currentNumber = newNumber;
+            onlineMonitor.updateDisplay(currentNumber);
+            System.out.println("Queue reset to: " + currentNumber);
+        } else {
+            System.out.println("Invalid reset number: must be >= 0");
         }
+    }
+
+    public void advanceQueue() {
+        System.out.println("Serving number: " + currentNumber + " (advancing queue)");
+        currentNumber++;
+        onlineMonitor.updateDisplay(currentNumber);
+    }
+
+    public int getCurrentNumber() {
+        return currentNumber;
+    }
+
+    public OnlineMonitor getOnlineMonitor() {
+        return onlineMonitor;
     }
 }
